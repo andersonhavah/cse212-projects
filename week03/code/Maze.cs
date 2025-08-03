@@ -32,7 +32,6 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // The valid moves for the current (x,y) are stored in the dictionary.
         // The boolean array is [left, right, up, down]. Index 0 is 'left'.
         if (_mazeMap[(_currX, _currY)][0])
         {
@@ -67,7 +66,7 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // Index 2 is 'up'. In typical 2D graphics, moving up decreases the Y-coordinate.
+        // Index 2 is 'up'. Moving up decreases the Y-coordinate.
         if (_mazeMap[(_currX, _currY)][2])
         {
             _currY--;
