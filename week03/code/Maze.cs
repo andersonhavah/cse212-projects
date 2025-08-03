@@ -32,7 +32,16 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        // The valid moves for the current (x,y) are stored in the dictionary.
+        // The boolean array is [left, right, up, down]. Index 0 is 'left'.
+        if (_mazeMap[(_currX, _currY)][0])
+        {
+            _currX--;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -41,7 +50,15 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        // Index 1 is 'right'.
+        if (_mazeMap[(_currX, _currY)][1])
+        {
+            _currX++;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -50,7 +67,15 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        // Index 2 is 'up'. In typical 2D graphics, moving up decreases the Y-coordinate.
+        if (_mazeMap[(_currX, _currY)][2])
+        {
+            _currY--;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -59,7 +84,15 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        // Index 3 is 'down'. Moving down increases the Y-coordinate.
+        if (_mazeMap[(_currX, _currY)][3])
+        {
+            _currY++;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()
