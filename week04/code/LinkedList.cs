@@ -33,6 +33,22 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+        // Create a new node
+        Node newNode = new(value);
+
+        // If the list is empty, the new node is both the head and the tail
+        if (_tail is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        // Otherwise, add the new node after the current tail
+        else
+        {
+            _tail.Next = newNode;
+            newNode.Prev = _tail;
+            _tail = newNode;
+        }
     }
 
 
@@ -65,6 +81,18 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        // If the list has only one item, set head and tail to null
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        // If the list has more than one item, update the tail
+        else if (_tail is not null)
+        {
+            _tail.Prev!.Next = null; // Disconnect the second to last node from the tail
+            _tail = _tail.Prev; // Update the tail to be the second to last node
+        }
     }
 
     /// <summary>
@@ -109,6 +137,40 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? curr = _head;
+
+        // Search for the node that matches the value
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                // If the node is the only one in the list
+                if (_head == _tail)
+                {
+                    _head = null;
+                    _tail = null;
+                }
+                // If the node is the head
+                else if (curr == _head)
+                {
+                    RemoveHead();
+                }
+                // If the node is the tail
+                else if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                // If the node is in the middle
+                else
+                {
+                    curr.Prev!.Next = curr.Next;
+                    curr.Next!.Prev = curr.Prev;
+                }
+                // We can exit the function after we remove the first match
+                return;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -117,6 +179,18 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        Node? curr = _head;
+
+        // Search for all nodes that match the oldValue
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                // Replace the value
+                curr.Data = newValue;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -147,7 +221,14 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        Node? curr = _tail; // Start at the end for backward iteration
+
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide each item to the user
+            curr = curr.Prev; // Go backward in the linked list
+        }
+        
     }
 
     public override string ToString()
